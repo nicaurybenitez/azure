@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 # Env to set reusable variables
 env:
-  ACRNAME: acr4akscrochet
+  ACRNAME: acr4aksaug9
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -39,7 +39,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v2
         with:
-          context: ./Apps
+          context: ./Chapter15
           push: true
           tags: ${{ env.ACRNAME }}.azurecr.io/website/website:${{ github.run_number }}
           
@@ -54,8 +54,8 @@ jobs:
         uses: Azure/aks-set-context@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-group: rg-handsonaks
-          cluster-name: handsonaks
+          resource-group: rgcicd4akscrochet
+          cluster-name: aks4cicdcrochet
 
       - name: Helm upgrade
         run: |
@@ -72,4 +72,3 @@ jobs:
             [ -z "$PUBLICIP" ] && sleep 10
           done
           echo $PUBLICIP
-
